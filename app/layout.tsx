@@ -1,4 +1,6 @@
 import type React from "react"
+import { ClerkProvider } from '@clerk/nextjs';
+const publishableKey = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY;
 import type { Metadata } from "next"
 import { Figtree } from "next/font/google"
 import { GeistMono } from "geist/font/mono"
@@ -32,9 +34,10 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
-      <head>
-        <style>{`
+  <ClerkProvider publishableKey={publishableKey}>
+      <html lang="en">
+        <head>
+          <style>{`
 html {
   font-family: ${figtree.style.fontFamily};
   --font-sans: ${figtree.variable};
@@ -45,5 +48,6 @@ html {
       </head>
       <body className={`${figtree.variable} ${instrumentSerif.variable}`}>{children}</body>
     </html>
+    </ClerkProvider>
   )
 }
